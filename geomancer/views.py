@@ -1,10 +1,11 @@
 from flask import Blueprint, make_response, request, redirect, url_for, \
-    session, render_template, current_app, send_from_directory, flash
+    session, render_template, current_app, send_from_directory, flash, jsonify
 import json
 import sys
 import os
 import gzip
 import requests
+import json
 from uuid import uuid4
 from werkzeug import secure_filename
 from csvkit import convert
@@ -16,6 +17,8 @@ from geomancer.helpers import import_class, get_geo_types, get_data_sources, \
 from geomancer.app_config import ALLOWED_EXTENSIONS, \
     MAX_CONTENT_LENGTH
 from werkzeug.exceptions import RequestEntityTooLarge
+
+
 
 views = Blueprint('views', __name__)
 

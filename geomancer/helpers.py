@@ -3,20 +3,10 @@ from collections import OrderedDict
 import operator
 import re
 
-from geomancer.mancers.geotype import City, State, County, SchoolDistrict, \
-    CongressionalDistrict, Zip5, Zip9, StateFIPS, StateCountyFIPS, CensusTract
+from geomancer.mancers.geotype import County
 
 GEOTYPES = [
-    City, 
-    State, 
-    County, 
-    SchoolDistrict,
-    CongressionalDistrict, 
-    Zip5, 
-    Zip9, 
-    StateFIPS, 
-    StateCountyFIPS, 
-    CensusTract,
+    County,
 ]
 
 def encoded_dict(in_dict):
@@ -79,15 +69,7 @@ def get_geo_types(geo_type=None):
     return results, errors
 
 GEO_LOOKUP = {
-    'state': ['state'],
-    'city': ['city'],
-    'county': ['county'],
-    'zip_5': ['zip', 'zip code', 'zipcode'],
-    'congress_district': ['congressional district'],
-    'school_district': ['school district'],
-    'state_fips': ['state fips', 'state fips code'],
-    'state_county_fips': ['county fips'],
-    'census_tract': ['census tract', 'us census tract'],
+    'county': ['County', 'county'],
 }
 
 def guess_geotype(header, values):
@@ -140,7 +122,6 @@ def get_data_sources(geo_type=None):
                                           key=lambda x: x['human_name'])
         if mancer_obj['data_types']:
             mancer_data.append(mancer_obj)
-
     return mancer_data, errors
 
 def find_geo_type(geo_type, col_idxs):
@@ -149,16 +130,9 @@ def find_geo_type(geo_type, col_idxs):
     else:
         g = None
         fmt = u'{0}, {1}'
-        if 'city' in geo_type:
-            g = u'city'
-        elif 'county' in geo_type:
+        if 'county' in geo_type:
             g = u'county'
             fmt = u'{0} County, {1}'
-        elif 'school_district' in geo_type:
-            g = u'school_district'
-        elif 'congress_district' in geo_type:
-            g = u'congress_district'
-            fmt = u'Congressional District {0}, {1}'
         if geo_type.find(g) > 0:
             col_idxs = list(reversed(col_idxs.split(';')))
         else:
@@ -166,14 +140,8 @@ def find_geo_type(geo_type, col_idxs):
         return g, col_idxs, fmt
 
 SENSICAL_TYPES = {
-    'city;state': u'city',
-    'state;city': u'city',
-    'county;state': u'state',
-    'state;county': u'state',
-    'congress_district;state': u'congress_district',
-    'state;congress_district': u'congress_district',
-    'school_district;state': u'school_district',
-    'state;school_district': u'school_district',
+    'county;state': u'county',
+    'state;county': u'county',
 }
 
 def check_combos(combo):
