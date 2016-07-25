@@ -8,4 +8,4 @@ if __name__ == "__main__":
         port = int(sys.argv[1])
     except IndexError:
         port = 5000
-    app.run(debug=True, port=port)
+    app.run(host='0.0.0.0', port=port)
