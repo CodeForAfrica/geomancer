@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="shortcut icon" type="image/ico" href="{{ url_for('static', filename='images/favicon.ico') }}"/>
 
     <title>{% block title %}{% endblock %}</title>
 
@@ -71,6 +72,7 @@
           <p class='pull-right'>
             <a href='https://groups.google.com/forum/#!forum/geomancer'>Join the Geomancer Google Group</a>
             | &copy; <a href='http://ap.org'>Associated Press</a>
+            | <a href="http://codeforafrica.org/">Maintained by <img src="{{ url_for('static', filename='images/cfafrica-logo.png') }}" height="50px"/></a>
           </p>
         </div>
       </div>
